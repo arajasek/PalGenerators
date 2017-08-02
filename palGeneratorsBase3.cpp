@@ -45,17 +45,17 @@ void createStates(int palNumber) {
 	for(int i = 0; i < palNumber; i++)
 		for (int j = 0; j < palNumber; j++)
 			cout<<getStateName(i,j) <<endl;
-	cout<<"r r1 r2 r10 r11 r12 r20 r21 r22 r100 r101 r102 r110 r111 r112 \n";
-	cout <<"r200 r201 r202 r210 r211 r212 acc}\n";
+	cout<<"r r1 r2 r10 r11 r12 r20 r21 r22 r100 r101 r102 r110 r111 r112 r120 r121 r122 \n";
+	cout <<"r200 r201 r202 r210 r211 r212 r220 r221 r222 acc},\n";
 }
 
 void addMiddleTransitions(int palNumber, int c1, int c2) {
 	for(int i = 0; i <= palNumber*2; i++) {
 		for (int newc1 = 0; newc1 < palNumber; newc1++) {		
-				int lowerBit = (i+c2) % 2;
-				int higherBit = (newc1 + i) % 2;
-				int lowerCarry = (i+c2) / 2;
-				int higherCarry = (newc1 + i ) / 2;
+				int lowerBit = (i+c2) % 3;
+				int higherBit = (newc1 + i) % 3;
+				int lowerCarry = (i+c2) / 3;
+				int higherCarry = (newc1 + i ) / 3;
 				if (higherCarry != c1)
 					continue;
 				cout << "("<<getStateName(c1, c2)<<" a" << higherBit << lowerBit << " " << getStateName(newc1, lowerCarry)<<")\n";
@@ -65,8 +65,8 @@ void addMiddleTransitions(int palNumber, int c1, int c2) {
 
 void addFinalTransitions(int palNumber, int c1, int c2) {
 	for(int i = 0; i <= palNumber*2; i++) {
-			int bit = (i+c2) % 2;
-			int carry = (i+c2) / 2;
+			int bit = (i+c2) % 3;
+			int carry = (i+c2) / 3;
 			if (carry != c1)
 				continue;
 			char letter = 'c' + bit;

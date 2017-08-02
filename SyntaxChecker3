@@ -1,6 +1,6 @@
 FiniteAutomaton syntaxChecker = (
 alphabet = {a00 a01 a02 a10 a11 a12 a20 a21 a22 c d e},
-states = { q0 q1 q2 acc}
+states = { q0 q1 q2 q3 q4 acc},
 initialStates = {q0},
 finalStates = {acc},
 transitions = {
@@ -14,5 +14,30 @@ transitions = {
 (q2 c q3)
 (q2 d q3)
 (q2 e q3)
+
+(q3 a00 q4)
+(q3 a01 q4)
+(q3 a02 q4)
+(q3 a10 q4)
+(q3 a11 q4)
+(q3 a12 q4)
+(q3 a20 q4)
+(q3 a21 q4)
+(q3 a22 q4)
+
+(q4 a00 q4)
+(q4 a01 q4)
+(q4 a02 q4)
+(q4 a10 q4)
+(q4 a11 q4)
+(q4 a12 q4)
+(q4 a20 q4)
+(q4 a21 q4)
+(q4 a22 q4)
+
+(q4 c acc)
+(q4 d acc)
+(q4 e acc)
+
 }
 );
