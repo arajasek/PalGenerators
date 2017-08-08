@@ -22,7 +22,7 @@ using namespace std;
 // a carry
 // x, the next length-n guess
 // y, the next n-2 guess
-// z, the previous n-3 guess
+// z, the next n-3 guess
 // l1 and l2 are the two previous n-2 guesses
 // m1, m2 and m3 are the three previous n-3 guesses
 
@@ -234,9 +234,10 @@ void AutomatonGenerator::print() {
 	printInternalTransitions();
 	printReturnTransitions();
 	cout << "print(numberOfStates("<<name<<"));\n";
+	cout << "NestedWordAutomaton finalAut = complement("<<name<<");\n";
 }
 
 int main() {
-	AutomatonGenerator a ("1_1_1");
+	AutomatonGenerator a ("1_0_1_1");
 	a.print();
 }

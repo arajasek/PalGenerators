@@ -185,9 +185,10 @@ void AutomatonGenerator::print() {
 	printInternalTransitions();
 	printReturnTransitions();
 	cout << "print(numberOfStates("<<name<<"));\n";
+	cout << "finalAut = intersect(finalAut, complement("<<name<<"));\n";
 }
 
 int main() {
-	AutomatonGenerator a ("1_1_0");
+	AutomatonGenerator a ("1_0_1_0");
 	a.print();
 }

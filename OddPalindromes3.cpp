@@ -21,7 +21,7 @@ using namespace std;
 //Q States are 6-tuples (carry, x,z, m1, m2, m3)
 // a carry
 // x, the next length-n guess
-// z, the previous n-3 guess
+// z, the next n-3 guess
 // m1, m2 and m3 are the three previous n-3 guesses
 
 class AutomatonGenerator {
@@ -198,9 +198,10 @@ void AutomatonGenerator::print() {
 	printInternalTransitions();
 	printReturnTransitions();
 	cout << "print(numberOfStates("<<name<<"));\n";
+	cout << "finalAut = intersect(finalAut, complement("<<name<<"));\n";
 }
 
 int main() {
-	AutomatonGenerator a ("1_0_1");
+	AutomatonGenerator a ("1_0_0_1");
 	a.print();
 }
