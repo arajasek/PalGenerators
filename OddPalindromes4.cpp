@@ -57,7 +57,7 @@ string AutomatonGenerator::getQStateName(int carry, int x, int y, int z, int k, 
 }
 
 void AutomatonGenerator::printSReturnTransitions() {
-	for (int stateCarry = 0; stateCarry < maxCarry; stateCarry++) {
+	for (int stateCarry = 0; stateCarry <= maxCarry; stateCarry++) {
 		string currName = "s"+to_string(stateCarry);
 		for (int carry = 0; carry <= maxCarry; carry++) {
 			for (int x = 0; x <= 1; x++) {
@@ -187,7 +187,7 @@ void AutomatonGenerator::printCallTransitions() {
 											for (int x2 = 0; x2 <= 1; x2++) {
 												for (int y2 = 0; y2 <= 1; y2++) {
 													for (int z2 = 0; z2 <= 1; z2++) {
-														cout<<"("<<name<<" "<<inp<<" "<<getQStateName(newCarry, x2, y2, z2, k, y, l1, z, m1, m2)<<")\n";
+														cout<<"("<<name<<" "<<inp<<" "<<getQStateName(newCarry, x2, y2, z2, x, y, l1, z, m1, m2)<<")\n";
 													}
 												}
 											}
