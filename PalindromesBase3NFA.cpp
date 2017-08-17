@@ -150,8 +150,7 @@ void AutomatonGeneratorCaseA::print() {
 	addAtransitions();
 	addBtransitions();
 	addCtransitions();
-	cout << "FiniteAutomaton finalAut = complement("<<name<<");\n";	
-	cout << "finalAut = shrinkNwa(finalAut);\n";
+	cout << "FiniteAutomaton finalAut = shrinkNwa(complement("<<name<<"));\n";
 }
 
 class AutomatonGeneratorCaseB {
@@ -284,8 +283,8 @@ void AutomatonGeneratorCaseB::print() {
 	addAtransitions();
 	addBtransitions();
 	addCtransitions();
-	cout << "FiniteAutomaton finalAut = intersect(finalAut, complement("<<name<<"));\n";
-	cout << "finalAut = shrinkNwa(finalAut);\n";
+	cout << "FiniteAutomaton " << name <<"Comp = shrinkNwa(complement(" << name << "));\n";
+	cout << "finalAut = shrinkNwa(intersect(finalAut, "<<name<<"Comp));\n";
 }
 
 class AutomatonGeneratorCaseC {
@@ -407,8 +406,9 @@ void AutomatonGeneratorCaseC::print() {
 	addAtransitions();
 	addBtransitions();
 	addCtransitions();
-	cout << "FiniteAutomaton finalAut = intersect(finalAut, complement("<<name<<"));\n";
-	cout << "finalAut = shrinkNwa(finalAut);\n";
+	cout << "FiniteAutomaton " << name <<"Comp = shrinkNwa(complement(" << name << "));\n";
+	cout << "finalAut = shrinkNwa(intersect(finalAut, "<<name<<"Comp));\n";
+	cout << "finalAut = shrinkNwa(complement(finalAut));\n\n\n\n\n\n";
 }
 
 
