@@ -1,6 +1,6 @@
 // This generates the script to prove
 //For all n >= 8 with n even, every n-bit integer is the sum of at most
-//28 binary palindromes of length exactly n-3.
+//28 ternary palindromes of length exactly n-3.
 
 
 	// 100 9
@@ -185,10 +185,11 @@ int main() {
 	}
 	cout<<endl<<endl<<"FiniteAutomaton finalAut = intersect(complement("<<autNames.at(0)<<"), complement("<<autNames.at(1)<<"));\n";
 	for(int i = 2; i < autNames.size(); i++) {
-		cout<<"finalAut = removeUnreachable(finalAut);\n";
+		cout<<"finalAut = shrinkNwa(finalAut);\n";
 		cout<<"finalAut = intersect(finalAut, complement("<<autNames.at(i)<<"));\n";
 	}
-	cout<<"finalAut = removeUnreachable(complement(finalAut));\n\n\n";
+	cout<<"finalAut = shrinkNwa(complement(finalAut));\n\n\n";
+	cout<<"print(numberOfStates(finalAut));\n";
 	cout<<"// print(getAcceptedWord(difference(syntaxChecker, finalAut)));\n";
 	cout<<"assert(isIncluded(syntaxChecker, finalAut));\n\n\n\n";
 }
