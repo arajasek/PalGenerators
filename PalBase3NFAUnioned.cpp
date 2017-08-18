@@ -30,6 +30,8 @@ public:
 	void addBtransitions();
 	void addAtransitions();
 	void addCtransitions();
+	void addDtransitions();
+	void addEtransitions();
 	void addTransitions();
 	AutomatonGeneratorCaseA(int);
 };
@@ -50,7 +52,7 @@ string AutomatonGeneratorCaseA::getStateName(int c1, int c2, int x, int y, int z
 	return ("A_"+to_string(c1)+"_"+to_string(c2)+"_"+to_string(x)+to_string(y)+to_string(z));
 }
 
-void AutomatonGeneratorCaseA::addAtransitions() {
+void AutomatonGeneratorCaseA::addEtransitions() {
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
 		for (int c2 = 0; c2 <= maxCarry; c2++) {
 			for (int x = 0; x < base; x++) {
@@ -66,7 +68,7 @@ void AutomatonGeneratorCaseA::addAtransitions() {
 										int lowerBit = (x + z + c2 + k) % base;
 										int lowerCarry = (x + z + c2 + k) / base;
 										if (higherCarry == c1) {
-											cout << "(" << originState <<" a" << higherBit << lowerBit;
+											cout << "(" << originState <<" e" << higherBit << lowerBit;
 											cout << " " << getStateName(newc1, lowerCarry, y, i, j)<<")\n";
 										}
 									}
@@ -80,7 +82,7 @@ void AutomatonGeneratorCaseA::addAtransitions() {
 	}
 }
 
-void AutomatonGeneratorCaseA::addCtransitions() {
+void AutomatonGeneratorCaseA::addBtransitions() {
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
 		for (int x = 0; x < base; x++) {
 			string originState = getStateName(c1, 0, 0, x, 0);
@@ -90,7 +92,7 @@ void AutomatonGeneratorCaseA::addCtransitions() {
 						int bit = (newc1 + newx + j) % base;
 						int newCarry = (newc1 + newx + j) / base;
 						if (newCarry == c1)
-							cout << "(" << originState <<" c" << bit << " " << getStateName(newc1, 0, x, newx, j)<<")\n";
+							cout << "(" << originState <<" b" << bit << " " << getStateName(newc1, 0, x, newx, j)<<")\n";
 					}	
 				}
 			}
@@ -98,14 +100,14 @@ void AutomatonGeneratorCaseA::addCtransitions() {
 	}
 }
 
-void AutomatonGeneratorCaseA::addBtransitions() {
+void AutomatonGeneratorCaseA::addAtransitions() {
 	string initState = getStateName(0, 0, 0, 0, 0);
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
 		for (int y = 1; y < base; y++) {
 			int bit = (c1 + y) % base;
 			int newCarry = (c1 + y) / base;
 			if (bit != 0)
-				cout << "(" << initState<<" b" << bit << " " << getStateName(c1, 0, 0, y, 0)<<")\n";
+				cout << "(" << initState<<" a" << bit << " " << getStateName(c1, 0, 0, y, 0)<<")\n";
 		}
 	}
 }
@@ -140,6 +142,8 @@ void AutomatonGeneratorCaseA::addTransitions() {
 	addAtransitions();
 	addBtransitions();
 	addCtransitions();
+	addDtransitions();
+	addEtransitions();
 }
 
 class AutomatonGeneratorCaseB {
@@ -155,6 +159,8 @@ public:
 	void addBtransitions();
 	void addAtransitions();
 	void addCtransitions();
+	void addDtransitions();
+	void addEtransitions();
 	void addTransitions();
 
 	AutomatonGeneratorCaseB(int);
@@ -175,7 +181,7 @@ string AutomatonGeneratorCaseB::getStateName(int c1, int c2, int x, int y, int z
 	return ("B_"+to_string(c1)+"_"+to_string(c2)+"_"+to_string(x)+to_string(y)+to_string(z));
 }
 
-void AutomatonGeneratorCaseB::addAtransitions() {
+void AutomatonGeneratorCaseB::addEtransitions() {
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
 		for (int c2 = 0; c2 <= maxCarry; c2++) {
 			for (int x = 0; x < base; x++) {
@@ -191,7 +197,7 @@ void AutomatonGeneratorCaseB::addAtransitions() {
 										int lowerBit = (x + j + c2 + k) % base;
 										int lowerCarry = (x + j + c2 + k) / base;
 										if (higherCarry == c1) {
-											cout << "(" << originState <<" a" << higherBit << lowerBit;
+											cout << "(" << originState <<" e" << higherBit << lowerBit;
 											cout << " " << getStateName(newc1, lowerCarry, y, i, k)<<")\n";
 										}
 									}
@@ -205,7 +211,7 @@ void AutomatonGeneratorCaseB::addAtransitions() {
 	}
 }
 
-void AutomatonGeneratorCaseB::addCtransitions() {
+void AutomatonGeneratorCaseB::addBtransitions() {
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
 		for (int x = 0; x < base; x++) {
 			string originState = getStateName(c1, 0, 0, x, 0);
@@ -214,21 +220,21 @@ void AutomatonGeneratorCaseB::addCtransitions() {
 					int bit = (newc1 + newx) % base;
 					int newCarry = (newc1 + newx) / base;
 					if (newCarry == c1)
-						cout << "(" << originState <<" c" << bit << " " << getStateName(newc1, 0, x, newx, 0)<<")\n";
+						cout << "(" << originState <<" b" << bit << " " << getStateName(newc1, 0, x, newx, 0)<<")\n";
 				}
 			}
 		}
 	}
 }
 
-void AutomatonGeneratorCaseB::addBtransitions() {
+void AutomatonGeneratorCaseB::addAtransitions() {
 	string initState = getStateName(0, 0, 0, 0, 0);
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
 		for (int y = 1; y < base; y++) {
 			int bit = (c1 + y) % base;
 			int newCarry = (c1 + y) / base;
 			if (bit != 0)
-				cout << "(" << initState<<" b" << bit << " " << getStateName(c1, 0, 0, y, 0)<<")\n";
+				cout << "(" << initState<<" a" << bit << " " << getStateName(c1, 0, 0, y, 0)<<")\n";
 		}
 	}
 }
@@ -263,6 +269,8 @@ void AutomatonGeneratorCaseB::addTransitions() {
 	addAtransitions();
 	addBtransitions();
 	addCtransitions();
+	addDtransitions();
+	addEtransitions();
 }
 
 class AutomatonGeneratorCaseC {
@@ -277,6 +285,8 @@ public:
 	void addBtransitions();
 	void addAtransitions();
 	void addCtransitions();
+	void addDtransitions();
+	void addEtransitions();
 	void addTransitions();
 	AutomatonGeneratorCaseC(int);
 };
@@ -296,7 +306,7 @@ string AutomatonGeneratorCaseC::getStateName(int c1, int c2, int x, int z) {
 	return ("C_"+to_string(c1)+"_"+to_string(c2)+"_"+to_string(x)+to_string(z));
 }
 
-void AutomatonGeneratorCaseC::addAtransitions() {
+void AutomatonGeneratorCaseC::addEtransitions() {
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
 		for (int c2 = 0; c2 <= maxCarry; c2++) {
 			for (int x = 0; x < base; x++) {
@@ -311,7 +321,7 @@ void AutomatonGeneratorCaseC::addAtransitions() {
 										int lowerBit = (x + j + c2 + k) % base;
 										int lowerCarry = (x + j + c2 + k) / base;
 										if (higherCarry == c1) {
-											cout << "(" << originState <<" a" << higherBit << lowerBit;
+											cout << "(" << originState <<" e" << higherBit << lowerBit;
 											cout << " " << getStateName(newc1, lowerCarry, i, k)<<")\n";
 									}
 								}
@@ -326,25 +336,49 @@ void AutomatonGeneratorCaseC::addAtransitions() {
 
 void AutomatonGeneratorCaseC::addCtransitions() {
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
-		string originState = getStateName(c1, 0, 0, 0);
-		for (int newc1 = 0; newc1 <= maxCarry; newc1++) {
-			for (int newx = 0; newx < base; newx++) {
-				int bit = (newc1 + newx) % base;
-				int newCarry = (newc1 + newx) / base;
-				if (newCarry == c1)
-					cout << "(" << originState <<" c" << bit << " " << getStateName(newc1, 0, newx, 0)<<")\n";
+		for (int x = 0; x < base; x++) {
+			string originState = getStateName(c1, 0, x, 0);
+			for (int newc1 = 0; newc1 <= maxCarry; newc1++) {
+				for (int i = 0; i < base; i++) {
+					for (int j = 1; j < base; j++) {
+						for (int k = 0; k < base; k++) {
+							int higherBit = (i + j + newc1 + z) % base;
+							int higherCarry = (i + j + newc1 + z) / base;
+							int lowerBit = (x + j + c2 + k) % base;
+							int lowerCarry = (x + j + c2 + k) / base;
+							if (higherCarry == c1) {
+								cout << "(" << originState <<" c" << higherBit << lowerBit;
+								cout << " " << getStateName(newc1, lowerCarry, i, k)<<")\n";
+							}
+						}
+					}
+				}
 			}
 		}
 	}
 }
 
 void AutomatonGeneratorCaseC::addBtransitions() {
+	for (int c1 = 0; c1 <= maxCarry; c1++) {
+		string originState = getStateName(c1, 0, 0, 0);
+		for (int newc1 = 0; newc1 <= maxCarry; newc1++) {
+			for (int newx = 0; newx < base; newx++) {
+				int bit = (newc1 + newx) % base;
+				int newCarry = (newc1 + newx) / base;
+				if (newCarry == c1)
+					cout << "(" << originState <<" b" << bit << " " << getStateName(newc1, 0, newx, 0)<<")\n";
+			}
+		}
+	}
+}
+
+void AutomatonGeneratorCaseC::addAtransitions() {
 	string initState = getStateName(0, 0, 0, 0);
 	for (int c1 = 0; c1 <= maxCarry; c1++) {
 		int bit = c1 % base;
 		int newCarry = c1 / base;
 		if (bit != 0)
-			cout << "(" << initState<<" b" << bit << " " << getStateName(c1, 0, 0, 0)<<")\n";
+			cout << "(" << initState<<" a" << bit << " " << getStateName(c1, 0, 0, 0)<<")\n";
 	}
 }
 
@@ -378,6 +412,8 @@ void AutomatonGeneratorCaseC::addTransitions() {
 	addAtransitions();
 	addBtransitions();
 	addCtransitions();
+	addDtransitions();
+	addEtransitions();
 }
 
 
