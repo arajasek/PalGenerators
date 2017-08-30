@@ -3,6 +3,43 @@
 #include <math.h>
 using namespace std;
 
+string printInt(int n) {
+	double p = log10(n) / log10(3);
+	int len = p + 1;
+	string str(len, 'f');
+	for(int i = str.length() - 1; i >= 0; i--) {
+		int x = n % 3;
+		str.at(i) = '0' + x;
+		n /= 3;
+	}
+	string output = "[";
+	output += "a";
+	output += str.at(0);
+	output += " ";
+	output += "b";
+	output += str.at(1);
+	output += " ";
+	output += "c";
+	output += str.at(2);
+	output += str.at(len - 1);
+	output += " ";
+	int i, j;
+	for (i = 3, j = len - 2; i < j; i++, j--) {
+		output += "d";
+		output += str.at(i);
+		output += str.at(j);
+		output += " ";
+	}
+	if (i == j) {
+		output += "e";
+		output += str.at(i);
+		output += " ";
+	}
+
+	output.at(output.length() - 1) =  ']';
+	return output;
+}
+
 bool cond1 (int i, int j, int k, int n) {
 	double logi = log10(i) / log10(3);
 	double logj = log10(j) / log10(3);
@@ -24,17 +61,15 @@ bool cond1 (int i, int j, int k, int n) {
 
 int main() {
 	vector<bool> flags(1000);
-	// cout << cond1(8, 23, 182, 213);
 	vector<int> v1 = {1, 2, 4, 8, 10, 13, 16, 20, 23, 26, 28, 40, 52, 56, 68, 80, 82, 91, 100, 112, 121, 130, 142, 151, 160, 164, 173, 182, 194, 203, 212, 224, 233, 242, 244, 280, 316, 328, 364, 400, 412, 448, 484, 488, 524, 560, 572, 608, 644, 656, 692, 728, 730, 757};
-	// cout <<endl<<v1.at(v1.size()-1)<<endl;
-	for (int n= 100; n < 1000; n++) {
+	for (int n= 243; n < 1000; n++) {
 		for (int i = 0; i < v1.size(); i++) {
 			for (int j = 0; j < v1.size(); j++) {
 				for (int k = 0; k < v1.size(); k++) {
 					if ((v1.at(i) + v1.at(j) + v1.at(k)) == n) {
 						if (cond1(v1.at(i),v1.at(j),v1.at(k),n)) {
-							if (n==216)
-								cout<<v1.at(i)<<" "<<v1.at(j)<<" "<<v1.at(k)<<" "<<n<<endl;
+							if (n==735)
+								cout <<"// " <<i<<" "<<j<<" "<<k<<endl;
 							flags.at(n) = true;
 						}
 					}
@@ -42,8 +77,10 @@ int main() {
 			}
 		}
 	}
-	for (int n= 95; n < 1000; n++) {
+	for (int n= 243; n < 1000; n++) {
 		if (flags.at(n) == false)
-			cout << n <<endl;
+			cout << "assert(!accepts(finalAut, "<<printInt(n)<<"));\n";
+		else
+			cout << "assert(accepts(finalAut, "<<printInt(n)<<"));\n";
 	}
 }
