@@ -52,10 +52,20 @@ AutomatonGenerator::AutomatonGenerator (int n0, int nMinusFour) {
 }
 
 string AutomatonGenerator::getStateName(State s) {
-	string ret = " Q" + to_string(s.na) + to_string(s.nb);
-	ret += to_string(s.nc) + to_string(s.nd);	
+	// string ret = " Q" + to_string(s.na) + to_string(s.nb);
+	// ret += to_string(s.nc) + to_string(s.nd);	
 
-	return ret+"_"+to_string(s.lowerCarry)+"_"+to_string(s.higherCarry)+" ";
+	// return ret+"_"+to_string(s.lowerCarry)+"_"+to_string(s.higherCarry)+" ";
+
+	int i = 0;
+	i += s.higherCarry;
+	i += 2*s.lowerCarry;
+	i += 4*s.nd;
+	i += 8*s.nc;
+	i += 16*s.nb;
+	i += 32*s.na;
+
+	return " " + to_string(i) + " ";
 }
 
 void AutomatonGenerator::getFinalStates() {
@@ -192,7 +202,7 @@ void AutomatonGenerator::addATransitions() {
 		if ((higherBit != 1) || (higherCarry != 0))
 			continue;
 		string destName = getStateName(State(0, 0, 0, n, 0, incomingCarry));
-		cout << "(" << sname << "a1 " << destName <<")\n";
+		cout << "(" << sname << "a1" << destName <<")\n";
 	}
 }
 
@@ -231,7 +241,7 @@ int main() {
 
 
 	cout << "FiniteAutomaton testMachine = (\n";	
-	cout << "alphabet = {a1 b0 b1 c0 c1 d0 d1 e00 e01 e10 e11 f0 f1},\n";
+	cout << "alphabet = {a1 b0 b1 c0 c1 d0 d1 e00 e01 e10 e11 f00 f01 f10 f11 g0 g1},\n";
 
 	cout << "states = {\n";
 	a.createStates();
