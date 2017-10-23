@@ -65,7 +65,7 @@ string AutomatonGenerator::getStateName(State s) {
 	i += 16*s.nb;
 	i += 32*s.na;
 
-	return " " + to_string(i) + " ";
+	return " q" + to_string(i) + " ";
 }
 
 void AutomatonGenerator::getFinalStates() {
