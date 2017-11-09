@@ -72,7 +72,7 @@ void AutomatonGenerator::createStates() {
 }
 
 void AutomatonGenerator::addATransitions(State s) {
-	if (s.na != s.nb)
+	if (s.nb != s.nc)
 		return;
 	string sname = getStateName(s);
 	for (int n3guess = 0; n3guess <= n3; n3guess++) {
@@ -173,7 +173,7 @@ int main() {
 
 
 	cout << "FiniteAutomaton testMachine = (\n";	
-	cout << "alphabet = {a0 a1 b00 b01 b10 b11 c00 c01 c10 c11},\n";
+	cout << "alphabet = {a0 a1 b00 b10 c00 c01 c10 c11},\n";
 
 	cout << "states = { r0\nr1\ns0\ns1\ns2\n";
 	a.createStates();

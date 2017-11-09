@@ -1,5 +1,5 @@
 FiniteAutomaton testMachine = (
-alphabet = {a0 a1 b00 b01 b10 b11 c00 c01 c10 c11},
+alphabet = {a0 a1 b00 b10 c00 c01 c10 c11},
 states = { r0
 r1
 s0
@@ -108,8 +108,6 @@ transitions = {
 ( q4 c10 q12 )
 ( q4 c10 q9 )
 
-( q4 a0 acc )
-( q4 a1 acc )
 
 ( q5 c01 q12 )
 ( q5 c01 q9 )
@@ -122,14 +120,12 @@ transitions = {
 ( q6 c11 q12 )
 ( q6 c11 q9 )
 
-( q6 a1 acc )
 
 ( q7 c00 q14 )
 ( q7 c00 q11 )
 ( q7 c01 q13 )
 ( q7 c10 q15 )
 
-( q7 a0 acc )
 
 ( q8 c00 q16 )
 ( q8 c11 q16 )
@@ -160,6 +156,8 @@ transitions = {
 ( q12 c10 q28 )
 ( q12 c10 q25 )
 
+( q12 a0 acc )
+( q12 a1 acc )
 
 ( q13 c01 q28 )
 ( q13 c01 q25 )
@@ -172,24 +170,28 @@ transitions = {
 ( q14 c11 q28 )
 ( q14 c11 q25 )
 
+( q14 a1 acc )
 
 ( q15 c00 q30 )
 ( q15 c00 q27 )
 ( q15 c01 q29 )
 ( q15 c10 q31 )
 
+( q15 a0 acc )
 
 ( q16 c01 q0 )
 ( q16 c10 q2 )
 ( q16 c11 q4 )
 ( q16 c11 q1 )
 
+( q16 a1 acc )
 
 ( q17 c00 q6 )
 ( q17 c00 q3 )
 ( q17 c01 q5 )
 ( q17 c10 q7 )
 
+( q17 a0 acc )
 
 ( q18 c00 q2 )
 ( q18 c11 q2 )
@@ -202,6 +204,8 @@ transitions = {
 ( q19 c00 q7 )
 ( q19 c11 q7 )
 
+( q19 a0 acc )
+( q19 a1 acc )
 
 ( q20 c01 q8 )
 ( q20 c10 q10 )
@@ -232,14 +236,12 @@ transitions = {
 ( q24 c11 q20 )
 ( q24 c11 q17 )
 
-( q24 a1 acc )
 
 ( q25 c00 q22 )
 ( q25 c00 q19 )
 ( q25 c01 q21 )
 ( q25 c10 q23 )
 
-( q25 a0 acc )
 
 ( q26 c00 q18 )
 ( q26 c11 q18 )
@@ -252,8 +254,6 @@ transitions = {
 ( q27 c00 q23 )
 ( q27 c11 q23 )
 
-( q27 a0 acc )
-( q27 a1 acc )
 
 ( q28 c01 q24 )
 ( q28 c10 q26 )
@@ -287,12 +287,320 @@ transitions = {
 }
 );
 FiniteAutomaton finalAut = shrinkNwa(testMachine);
-print(numberOfStates(shrinkNwa(determinize(finalAut))));
+//print(numberOfStates(determinize(finalAut)));
 
 
 
 
 
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b10 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b10 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b10 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b10 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b10 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b00 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c00 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c11 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c11 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c11 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c11 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c10 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c11 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c10 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a0 b10 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a0 b10 c11 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c00 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c00 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c00 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c00 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c00 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c01 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c01 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c00 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c10 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c11 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c11 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c11 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c11 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c10 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b00 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b00 c11 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c00 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c00 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c01 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c00 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c00 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c00 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c00 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c01 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c10 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c11 c00 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c11 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c11 c01 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c10 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c11 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a0 a1 b10 c11 c10 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c10 c11 a0]));
+assert(accepts(finalAut, [a1 a0 a1 b10 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c00 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c01 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c00 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c00 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c00 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c00 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c01 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c01 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c10 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c11 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c10 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c11 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c11 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c11 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c11 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b00 c10 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b00 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c00 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c01 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c00 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c00 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c01 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c00 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c01 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c00 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c01 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c10 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c11 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c10 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c11 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c11 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c10 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c11 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a0 b10 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a0 b10 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c00 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c01 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c00 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c01 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c01 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c01 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c00 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c00 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c01 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c11 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c10 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c10 c01 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c11 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c10 c10 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c10 c11 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b00 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c10 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c11 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c10 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b00 c11 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b10 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 c00 a0]));
+assert(accepts(finalAut, [a1 a1 a1 b10 c01 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c01 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c01 c10 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c00 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c01 c11 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c10 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c11 c00 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c10 c01 a0]));
+assert(!accepts(finalAut, [a1 a1 a1 b10 c11 c01 a0]));
 
 
 
