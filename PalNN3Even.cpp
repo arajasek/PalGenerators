@@ -29,6 +29,7 @@ private:
 	void addInitTransitions();
 	void addATransitions(State s);
 	void addBTransitions(State s);
+	void addCTransitions(State s);
 
 public:
 	AutomatonGenerator(int, int);
@@ -44,10 +45,6 @@ AutomatonGenerator::AutomatonGenerator (int n0, int nMinusThree) {
 }
 
 string AutomatonGenerator::getStateName(State s) {
-	// string ret = " Q" + to_string(s.na) + to_string(s.nb);
-	// ret += to_string(s.nc) + to_string(s.nd);	
-
-	// return ret+"_"+to_string(s.lowerCarry)+"_"+to_string(s.higherCarry)+" ";
 
 	int i = 0;
 	i += s.higherCarry;
@@ -74,33 +71,53 @@ void AutomatonGenerator::createStates() {
 	}
 }
 
-void AutomatonGenerator::addBTransitions(State s) {
-	if ((s.na + s.nb + s.nc + s.lowerCarry) != 0)
+void AutomatonGenerator::addATransitions(State s) {
+	if (s.na != s.nb)
 		return;
+	string sname = getStateName(s);
+	for (int n3guess = 0; n3guess <= n3; n3guess++) {
+		int bit = (s.lowerCarry + s.na + n3guess) % 2;
+		int carry = (s.lowerCarry + s.na + n3guess) / 2;
+		if (carry != s.higherCarry)
+			continue;
+		cout << "(" << sname << "a" << bit <<" acc )\n";
+	}
+}
+
+
+void AutomatonGenerator::addCTransitions(State s) {
 	string sname = getStateName(s);
 	for (int incomingCarry = 0; incomingCarry <= maxCarry; incomingCarry++) {
 		for (int nguess = 0; nguess <= n; nguess++) {
-			int higherBit = (incomingCarry + nguess) % 2;
-			int higherCarry = (incomingCarry + nguess) / 2;
-			if (higherCarry != s.higherCarry)
-				continue;
-			string destName = getStateName(State(0, 0, s.na, nguess, 0, incomingCarry));
-			cout << "(" << sname << "b" << higherBit << destName <<")\n";
+			for (int n3guess = 0; n3guess <= n3; n3guess++) {
+				int higherBit = (incomingCarry + nguess + n3guess) % 2;
+				int higherCarry = (incomingCarry + nguess + n3guess) / 2;
+				if (higherCarry != s.higherCarry)
+					continue;
+				int lowerBit = (s.lowerCarry + s.na + n3guess) % 2;
+				int lowerCarry = (s.lowerCarry + s.na + n3guess) / 2;			
+				string destName = getStateName(State(s.nb, s.nc, nguess, lowerCarry, incomingCarry));
+				cout << "(" << sname << "c" << higherBit << lowerBit << destName <<")\n";
+			}
 		}
 	}
 }
 
-// void AutomatonGenerator::addATransitions() {
-// 	string sname = getStateName(State());
-// 	for (int incomingCarry = 0; incomingCarry <= maxCarry; incomingCarry++) {
-// 		int higherBit = (incomingCarry + n) % 2;
-// 		int higherCarry = (incomingCarry + n) / 2;
-// 		if ((higherBit != 1) || (higherCarry != 0))
-// 			continue;
-// 		string destName = getStateName(State(0, 0, 0, n, 0, incomingCarry));
-// 		cout << "(" << sname << "a1" << destName <<")\n";
-// 	}
-// }
+void AutomatonGenerator::addBTransitions(State s) {
+	string sname = getStateName(s);
+	for (int incomingCarry = 0; incomingCarry <= maxCarry; incomingCarry++) {
+		for (int nguess = 0; nguess <= n; nguess++) {
+			int higherBit = (incomingCarry + nguess + n3) % 2;
+			int higherCarry = (incomingCarry + nguess + n3) / 2;
+			if (higherCarry != s.higherCarry)
+				continue;
+			int lowerBit = (n + n3) % 2;
+			int lowerCarry = (n + n3) / 2;			
+			string destName = getStateName(State(s.nb, s.nc, nguess, lowerCarry, incomingCarry));
+			cout << "(" << sname << "b" << higherBit << lowerBit << destName <<")\n";
+		}
+	}
+}
 
 // s0: must produce 0, guessed bit 0
 // s1: must produce 0, guessed bit 1
@@ -111,24 +128,33 @@ void AutomatonGenerator::addInitTransitions() {
 	cout<<"( r1 a0 s0 )\n";
 	cout<<"( r1 a1 s1 )\n";
 	cout<<"( r1 a1 s2 )\n";
-	cout<<"( s0 a0 " << getStateName(State(1,0,0,0,0))<<")\n";
-	cout<<"( s0 a1 " << getStateName(State(1,0,1,0,0))<<")\n";
-	cout<<"( s0 a1 " << getStateName(State(1,0,0,0,1))<<")\n";
-	cout<<"( s1 a0 " << getStateName(State(1,1,0,0,0))<<")\n";
-	cout<<"( s1 a1 " << getStateName(State(1,1,1,0,0))<<")\n";
-	cout<<"( s1 a1 " << getStateName(State(1,1,0,0,1))<<")\n";
-	cout<<"( s2 a0 " << getStateName(State(1,0,1,0,0))<<")\n";
-	cout<<"( s2 a1 " << getStateName(State(1,0,1,0,0))<<")\n";
-	cout<<"( s2 a1 " << getStateName(State(1,0,0,0,1))<<")\n";
+	cout<<"( s0 a0 " << getStateName(State(1,0,0,0,0))<<" )\n";
+	cout<<"( s0 a1 " << getStateName(State(1,0,1,0,0))<<" )\n";
+	cout<<"( s0 a1 " << getStateName(State(1,0,0,0,1))<<" )\n";
+	cout<<"( s1 a0 " << getStateName(State(1,1,0,0,0))<<" )\n";
+	cout<<"( s1 a1 " << getStateName(State(1,1,1,0,0))<<" )\n";
+	cout<<"( s1 a1 " << getStateName(State(1,1,0,0,1))<<" )\n";
+	cout<<"( s2 a0 " << getStateName(State(1,0,1,0,1))<<" )\n";
 }
 void AutomatonGenerator::addTransitions() {
 	addInitTransitions();
+	for(int nb = 0; nb <=n; nb++) {
+		for(int nc = 0; nc <=n; nc++) {
+			for(int higherCarry = 0; higherCarry <=maxCarry; higherCarry++) {
+				if (nb + nc + higherCarry == 3)
+					continue;
+				addBTransitions (State(1,nb,
+					nc,0, higherCarry));
+					cout << endl;
+			}
+		}
+	}
 	for(int na = 0; na <=n; na++) {
 		for(int nb = 0; nb <=n; nb++) {
 			for(int nc = 0; nc <=n; nc++) {
 				for(int lowerCarry = 0; lowerCarry <=maxCarry; lowerCarry++) {
 					for(int higherCarry = 0; higherCarry <=maxCarry; higherCarry++) {	
-						addBTransitions (State(na,nb,
+						addCTransitions (State(na,nb,
 							nc,lowerCarry, higherCarry));
 							cout << endl;
 						addATransitions (State(na,nb,
@@ -147,9 +173,9 @@ int main() {
 
 
 	cout << "FiniteAutomaton testMachine = (\n";	
-	cout << "alphabet = {a0 a1 b00 b01 b10 b11},\n";
+	cout << "alphabet = {a0 a1 b00 b01 b10 b11 c00 c01 c10 c11},\n";
 
-	cout << "states = { r0\nr1\n";
+	cout << "states = { r0\nr1\ns0\ns1\ns2\n";
 	a.createStates();
 	cout<<"\nacc},\n";
 
